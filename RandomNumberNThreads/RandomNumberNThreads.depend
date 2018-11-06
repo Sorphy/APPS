@@ -1,5 +1,9 @@
 # depslib dependency file v1.0
-1541512138 source:/home/ondra/Desktop/APPS/RandomNumberNThreads/main.cpp
-	<iostream>
+1541522216 source:/home/ondra/Desktop/APPS/RandomNumberNThreads/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<sys/time.h>
+	<sys/param.h>
 	<pthread.h>
 
