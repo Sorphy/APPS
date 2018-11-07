@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1541615111 source:/home/ondra/Desktop/APPS/GeneratingToOneArray/main.cpp
+	<iostream>
+	<pthread.h>
+
