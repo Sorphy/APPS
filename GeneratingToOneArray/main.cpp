@@ -3,6 +3,26 @@
 
 using namespace std;
 
+
+void swap(double *xp, double *yp)
+{
+    double temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// A function to implement bubble sort
+void bubbleSort(double* arr, int n)
+{
+   int i, j;
+   for (i = 0; i < n-1; i++)
+
+       // Last i elements are already in place
+       for (j = 0; j < n-i-1; j++)
+           if (arr[j] > arr[j+1])
+              swap(&arr[j], &arr[j+1]);
+}
+
 double generateRandomDouble(double min, double max)
 {
     return (max - min) * ( (double)rand() / (double)RAND_MAX ) + min;
@@ -53,6 +73,8 @@ int main()
     for(int i = 0; i < M; i++){
         pthread_join(data[i].t, nullptr);
     }
+
+    bubbleSort(arr, N);
 
     for(int i = 0; i < N; i++){
         printf("%f, ", arr[i]);
