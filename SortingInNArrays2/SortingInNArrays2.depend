@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1541959193 source:/home/ondra/Desktop/APPS/APPS/SortingInNArrays2/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<sys/time.h>
+	<sys/param.h>
+	<pthread.h>
+

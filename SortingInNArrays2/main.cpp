@@ -16,6 +16,8 @@ int timeval_to_ms( timeval *before, timeval *after ){
 typedef struct{
     int length;
     pthread_t thread;
+    int min;
+    int max;
     int* data;
 }Arguments;
 
@@ -155,6 +157,11 @@ void* insertionSortAscAsync(void* arguments){
 
 void* insertionSortDescAsync(void* arguments){
     Arguments* args = (Arguments*)arguments;
+
+    for(int i = 0; i < args->length; i++){
+        args->data[i] = generateNumberInRange(args->min, args->max);
+    }
+
     insertionSortDesc(args->data, args->length);
 }
 
@@ -229,18 +236,19 @@ int main()
 {
     timeval time_before, time_after;
     int N = 100000; //Elements count
-    int M = 150; //Threads count
+    int M = 15; //Threads count
     double min = -10000;   //Minimum for generation
     double max = 150000;    //Maximum for generation
-    int arr[N];
+    //int arr[N];
     Arguments arguments[M];
 
     //Generate random numbers ito array
-    for(int i = 0; i < N; i++){
+    /*for(int i = 0; i < N; i++){
         arr[i] = generateNumberInRange(min,max);
-    }
+    }*/
 
 
+    gettimeofday( &time_before, NULL );
     //Create arguments
     for(int i = 0; i < M; i++){
         int index = i * (int)(N / M);
@@ -251,15 +259,14 @@ int main()
 
         arguments[i].data = new int[length];
         arguments[i].length = length;
-        copyArray(&(arr[index]), arguments[i].data, length); //Copy values from original array
+        arguments[i].min = min;
+        arguments[i].max = max;
+        //copyArray(&(arr[index]), arguments[i].data, length); //Copy values from original array
+        pthread_create(&arguments[i].thread, NULL, insertionSortDescAsync, (void*) &arguments[i]);
     }
 
     //Create threads and sort
-    gettimeofday( &time_before, NULL );
 
-    for(int i = 0; i < M; i++){
-        pthread_create(&arguments[i].thread, NULL, insertionSortDescAsync, (void*) &arguments[i]);
-    }
     for(int i = 0; i < M; i++){
         pthread_join(arguments[i].thread, NULL);
     }
