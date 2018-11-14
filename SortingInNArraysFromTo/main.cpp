@@ -226,14 +226,13 @@ bool isSortedDesc(int* arr, int N){
     return true;
 }
 
-
 int main()
 {
     timeval time_before, time_after;
-    int N = 100000; //Elements count
-    int M = 1; //Threads count
-    double min = -10000;   //Minimum for generation
-    double max = 150000;    //Maximum for generation
+    int N = 50; //Elements count
+    int M = 5; //Threads count
+    double min = 97;   //Minimum for generation
+    double max = 122;    //Maximum for generation
     int arr[N];
     Arguments arguments[M];
 
@@ -274,7 +273,7 @@ int main()
 	for (int i = 0; i < M; i++) {
 		int s = 0;
 		for (int y = 0; y <= i; y++) {
-			s += arguments[i].to - arguments[i].from;
+			s += (arguments[y].to - arguments[y].from);
 		}
 
 		int* tmp = new int[s];
@@ -289,11 +288,29 @@ int main()
     printf( "Time: %d [ms]\n", timeval_to_ms( &time_before, &time_after ) );
 
 
+
+/*   for(int i = 0; i < M; i++){
+        printf("From: %d\r\n", arguments[i].from);
+        printf("To: %d\r\n", arguments[i].to);
+        for(int y = 0; y < arguments[i].to - arguments[i].from; y++){
+            printf("%d, ", arguments[i].data[y]);
+        }
+        printf("\r\n");
+    }*/
+
     //Verify if array is sorted
     if(isSortedDesc(output, N)){
         printf("Sorted\n\r");
     }else{
         printf("Unsorted\n\r");
     }
+
+    printf("%d\r\n", size_o);
+
+    for(int i = 0; i < size_o; i++){
+        printf("%c", (char)output[i]);
+    }
+    printf("\r\n");
+
     return 0;
 }
